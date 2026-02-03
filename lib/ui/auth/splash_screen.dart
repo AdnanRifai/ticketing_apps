@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:ticketing_apps/core/assets/asset.gen.dart';
+import 'package:ticketing_apps/core/extentions/build_context_ext.dart';
+import 'package:ticketing_apps/ui/auth/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    Future.delayed(
+      Duration(seconds: 2),
+      () => context.pushReplacement(LoginScreen())
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Splash Screen"),
+      body: Padding(
+        padding: const EdgeInsets.all(96),
+        child: Center(child: Assets.images.logoBlue.image()),
       ),
-      body: Center(
-        child: Text("Ini adalah Splash Screen"),
+      bottomNavigationBar: SizedBox(
+        height: 100,
+        child: Assets.images.logo.image(width: 96),
       ),
     );
   }

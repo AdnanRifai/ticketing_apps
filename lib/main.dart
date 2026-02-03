@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ticketing_apps/core/contstans/colors.dart';
 import 'package:ticketing_apps/ui/auth/splash_screen.dart';
 
 void main() {
@@ -14,11 +16,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+        dialogTheme: DialogThemeData(elevation: 0),
+        textTheme: GoogleFonts.plusJakartaSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+          elevation: 0,
+          titleTextStyle: GoogleFonts.plusJakartaSans(
+            color: AppColors.primary,
+            fontSize: 10,
+            fontWeight: FontWeight.w500,
+          ),
+          iconTheme: IconThemeData(color: AppColors.black),
+          centerTitle: true,
+        ),
       ),
       home: const SplashScreen(),
     );
   }
 }
-
-  
