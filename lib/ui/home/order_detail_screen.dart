@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ticketing_apps/core/assets/asset.gen.dart';
 import 'package:ticketing_apps/core/components/button.dart';
 import 'package:ticketing_apps/core/components/space.dart';
@@ -7,18 +6,26 @@ import 'package:ticketing_apps/core/contstans/colors.dart';
 import 'package:ticketing_apps/core/extentions/build_context_ext.dart';
 import 'package:ticketing_apps/core/extentions/idr_currency.dart';
 import 'package:ticketing_apps/ui/home/model/product__model.dart';
-import 'package:ticketing_apps/ui/home/order_detail_screen.dart';
 
-class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key});
+class OrderDetailScreen extends StatelessWidget {
+  final List<ProductModel> products;
+  const OrderDetailScreen({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Penjualan Ticket')),
+      appBar: AppBar(
+        title: Text('Detail Pesanan'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Assets.images.back.image(),
+        ),
+      ),
       body: ListView.separated(
         itemBuilder: (context, index) {
-          final item = dummyProducts[index];
+          final item = products[index];
           return Container(
             padding: EdgeInsets.all(24),
             decoration: BoxDecoration(
@@ -44,16 +51,6 @@ class OrderScreen extends StatelessWidget {
                         Text(item.type),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Assets.icons.reduceQuantity.svg(),
-                        Text(
-                          item.quantity.toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Assets.icons.addQuantity.svg(),
-                      ],
-                    ),
                   ],
                 ),
                 SpaceHeight(12),
@@ -61,11 +58,11 @@ class OrderScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      item.price.currencyFormatRp,
+                      "${item.price.currencyFormatRp} x ${item.quantity}",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      item.price.currencyFormatRp,
+                      (item.price * item.quantity).currencyFormatRp,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -75,48 +72,7 @@ class OrderScreen extends StatelessWidget {
           );
         },
         separatorBuilder: (context, index) => SpaceHeight(20),
-        itemCount: dummyProducts.length,
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Container(
-          margin: EdgeInsets.only(bottom: 10),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Order Summary',
-                      style: TextStyle(color: AppColors.grey),
-                    ),
-                    SpaceHeight(4),
-                    Text(
-                      30000000.currencyFormatRp,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Button.filled(
-                  onPressed: () {
-                    context.push(OrderDetailScreen(products: [
-                      dummyProducts[0], dummyProducts[2]
-                    ]));
-                  },
-                  label: 'Checkout',
-                  borderRadius: 20,
-                ),
-              ),
-            ],
-          ),
-        ),
+        itemCount: products.length,
       ),
     );
   }

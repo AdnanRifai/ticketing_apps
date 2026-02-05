@@ -8,7 +8,7 @@ class ProductModel {
     required this.productName,
     required this.type,
     required this.price,
-    this.quantity = 1,
+    this.quantity = 4,
   });
 }
 
@@ -43,6 +43,7 @@ final dummyProducts = [
     productName: 'Ticketing Dewasa',
     type: 'Manca Negara',
     price: 200000,
+    
   ),
   ProductModel(
     productName: 'Ticketing Anak Kecil',
