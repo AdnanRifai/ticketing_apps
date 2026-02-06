@@ -6,6 +6,7 @@ import 'package:ticketing_apps/core/contstans/colors.dart';
 import 'package:ticketing_apps/core/extentions/build_context_ext.dart';
 import 'package:ticketing_apps/core/extentions/idr_currency.dart';
 import 'package:ticketing_apps/core/widgets/payment_method_button.dart';
+import 'package:ticketing_apps/ui/dialog/payment_qris_dialog.dart';
 import 'package:ticketing_apps/ui/home/model/product__model.dart';
 
 class OrderDetailScreen extends StatelessWidget {
@@ -49,6 +50,7 @@ class OrderDetailScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w800,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Text(item.type),
@@ -155,7 +157,17 @@ class OrderDetailScreen extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 1,
-                  child: Button.filled(onPressed: () {}, label: "Proccess"),
+                  child: Button.filled(
+                    onPressed: () {
+                      if (payemntButtonIndex == 0) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => PaymentQrisDialog(),
+                        );
+                      }
+                    },
+                    label: "Proccess",
+                  ),
                 ),
               ],
             ),

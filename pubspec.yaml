@@ -38,6 +38,8 @@ dependencies:
   google_fonts: ^6.3.2
   intl: ^0.20.2
   build_runner: ^2.10.5
+  qr_flutter: ^4.1.0
+  timer_count_down: ^2.2.0
 
 dev_dependencies:
   flutter_test:
