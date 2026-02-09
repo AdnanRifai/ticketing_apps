@@ -7,6 +7,7 @@ import 'package:ticketing_apps/core/extentions/build_context_ext.dart';
 import 'package:ticketing_apps/core/extentions/idr_currency.dart';
 import 'package:ticketing_apps/core/widgets/payment_method_button.dart';
 import 'package:ticketing_apps/ui/dialog/payment_qris_dialog.dart';
+import 'package:ticketing_apps/ui/dialog/payment_tunai_dialog.dart';
 import 'package:ticketing_apps/ui/home/model/product__model.dart';
 
 class OrderDetailScreen extends StatelessWidget {
@@ -164,6 +165,9 @@ class OrderDetailScreen extends StatelessWidget {
                           context: context,
                           builder: (context) => PaymentQrisDialog(),
                         );
+                      }
+                      if (payemntButtonIndex == 1) {
+                        showDialog(context: context, builder: (context) => PaymentTunaiDialog(totalPrice: 20000));
                       }
                     },
                     label: "Proccess",
