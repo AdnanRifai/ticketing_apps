@@ -7,8 +7,8 @@ import 'package:ticketing_apps/core/extentions/idr_currency.dart';
 import 'package:ticketing_apps/ui/home/payment_success_screen.dart';
 
 class PaymentTunaiDialog extends StatefulWidget {
-  int totalPrice;
-  PaymentTunaiDialog({super.key, required this.totalPrice});
+  final int totalPrice;
+  const PaymentTunaiDialog({super.key, required this.totalPrice});
 
   @override
   State<PaymentTunaiDialog> createState() => _PaymentTunaiDialogState();
