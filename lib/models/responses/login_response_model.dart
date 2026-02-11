@@ -9,18 +9,18 @@ class LoginResponseModel {
         this.user,
     });
 
-    factory LoginResponseModel.fromRawJson(String str) => LoginResponseModel.fromJson(json.decode(str));
+    factory LoginResponseModel.fromJson(String str) => LoginResponseModel.fromMap(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+    String toJson() => json.encode(toMap());
 
-    factory LoginResponseModel.fromJson(Map<String, dynamic> json) => LoginResponseModel(
+    factory LoginResponseModel.fromMap(Map<String, dynamic> json) => LoginResponseModel(
         token: json["token"],
-        user: json["user"] == null ? null : User.fromJson(json["user"]),
+        user: json["user"] == null ? null : User.fromMap(json["user"]),
     );
 
-    Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toMap() => {
         "token": token,
-        "user": user?.toJson(),
+        "user": user?.toMap(),
     };
 }
 
@@ -45,11 +45,11 @@ class User {
         this.updatedAt,
     });
 
-    factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
+    factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+    String toJson() => json.encode(toMap());
 
-    factory User.fromJson(Map<String, dynamic> json) => User(
+    factory User.fromMap(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
         email: json["email"],
@@ -60,7 +60,7 @@ class User {
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     );
 
-    Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
         "email": email,
