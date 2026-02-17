@@ -7,6 +7,7 @@ import 'package:ticketing_apps/core/components/button.dart';
 import 'package:ticketing_apps/core/components/custom_text_field.dart';
 import 'package:ticketing_apps/core/components/space.dart';
 import 'package:ticketing_apps/core/contstans/colors.dart';
+import 'package:ticketing_apps/core/data/localdatasources/auth_local_datasource.dart';
 import 'package:ticketing_apps/core/extentions/build_context_ext.dart';
 import 'package:ticketing_apps/ui/auth/bloc/auth_bloc.dart';
 import 'package:ticketing_apps/ui/home/main_screen.dart';
@@ -63,7 +64,8 @@ class LoginScreen extends StatelessWidget {
                           listener: (context, state) {
                             state.maybeWhen(
                               orElse: () {},
-                              success: (data) {
+                              success: (data) async {
+                                await AuthLocalDataSource().saveAuthData(data);
                                 context.pushReplacement(MainScreen());
                               },
                               error: (message) {
