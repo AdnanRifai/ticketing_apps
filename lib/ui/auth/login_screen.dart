@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'
+    show BlocBuilder, BlocListener, read, ReadContext;
 import 'package:ticketing_apps/core/assets/asset.gen.dart';
 import 'package:ticketing_apps/core/components/button.dart';
 import 'package:ticketing_apps/core/components/custom_text_field.dart';
 import 'package:ticketing_apps/core/components/space.dart';
 import 'package:ticketing_apps/core/contstans/colors.dart';
 import 'package:ticketing_apps/core/extentions/build_context_ext.dart';
+import 'package:ticketing_apps/ui/auth/bloc/auth_bloc.dart';
 import 'package:ticketing_apps/ui/home/main_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -56,11 +59,45 @@ class LoginScreen extends StatelessWidget {
                           isOutlineBorder: false,
                         ),
                         SpaceHeight(36),
-                        Button.filled(
-                          onPressed: () {
-                            context.pushReplacement(MainScreen());
+                        BlocListener<AuthBloc, AuthState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              orElse: () {},
+                              success: (data) {
+                                context.pushReplacement(MainScreen());
+                              },
+                              error: (message) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(message),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              },
+                            );
                           },
-                          label: 'Login',
+                          child: BlocBuilder<AuthBloc, AuthState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                orElse: () {
+                                  return Button.filled(
+                                    onPressed: () {
+                                      context.read<AuthBloc>().add(
+                                        AuthEvent.login(
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        ),
+                                      );
+                                    },
+                                    label: 'Login',
+                                  );
+                                },
+                                loading: () {
+                                  return Center(child: CircularProgressIndicator());
+                                }
+                              );
+                            },
+                          ),
                         ),
                         SpaceHeight(120),
                         Center(child: Assets.images.logo.image(height: 88)),

@@ -7,7 +7,7 @@ import 'package:ticketing_apps/models/responses/login_response_model.dart';
 class AuthRemoteDatasource {
   
   Future<Either<String, LoginResponseModel>> login(LoginRequestModel data) async {
-    final response = await http.post(Uri.parse('${Variable.baseUrl}/api/login'), 
+    final response = await http.post(Uri.parse('${Variable.baseUrl}api/login'), 
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
