@@ -9,7 +9,7 @@ class AuthLocalDataSource {
   }
 
   // Future<LoginResponseModel?> getAuthData() async {
-  Future<void> removeAuth() async {
+  Future<void> removeAuthData() async {
     final pref = await SharedPreferences.getInstance();
     await pref.remove('login_session');
   }
